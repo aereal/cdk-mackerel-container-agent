@@ -11,6 +11,8 @@
     "mackerel"
   ],
   "devDependencies": {
+    "@aws-cdk/aws-ecs": "^0.25.1",
+    "@aws-cdk/aws-logs": "^0.25.1",
     "@aws-cdk/cdk": "^0.25.1",
     "@aws-cdk/cx-api": "^0.25.1",
     "prettier": "^1.16.4",
