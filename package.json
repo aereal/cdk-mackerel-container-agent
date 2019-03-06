@@ -5,5 +5,12 @@
   "repository": "git@github.com:aereal/cdk-mackerel-container-agent.git",
   "author": "aereal <aereal@aereal.org>",
   "license": "MIT",
-  "keywords": ["aws", "cdk", "mackerel"]
+  "keywords": [
+    "aws",
+    "cdk",
+    "mackerel"
+  ],
+  "devDependencies": {
+    "typescript": "^3.3.3333"
+  }
 }
