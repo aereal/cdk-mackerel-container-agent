@@ -1,0 +1,9 @@
+{
+  "name": "cdk-mackerel-container-agent",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:aereal/cdk-mackerel-container-agent.git",
+  "author": "aereal <aereal@aereal.org>",
+  "license": "MIT",
+  "keywords": ["aws", "cdk", "mackerel"]
+}
