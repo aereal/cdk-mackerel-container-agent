@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "lint": "tslint -p .",
-    "test": "tsc -p . --noEmit"
+    "test": "jest"
   },
   "devDependencies": {
     "@aws-cdk/assets": "^0.25.1",
