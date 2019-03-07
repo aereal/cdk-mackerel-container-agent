@@ -14,7 +14,7 @@ Object {
               },
               Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
-                "Value": "ecs_awsvpc",
+                "Value": "ecs",
               },
             ],
             "Essential": false,
@@ -111,7 +111,7 @@ Object {
               },
               Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
-                "Value": "ecs_awsvpc",
+                "Value": "ecs",
               },
               Object {
                 "Name": "MACKEREL_IGNORE_CONTAINER",
@@ -219,7 +219,7 @@ Object {
               },
               Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
-                "Value": "ecs_awsvpc",
+                "Value": "ecs",
               },
             ],
             "Essential": false,
@@ -380,7 +380,7 @@ Object {
               },
               Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
-                "Value": "ecs_awsvpc",
+                "Value": "ecs",
               },
               Object {
                 "Name": "MACKEREL_ROLES",

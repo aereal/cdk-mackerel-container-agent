@@ -1,8 +1,10 @@
 import {
   AwsLogDriver,
+  Compatibility,
   ContainerDefinition,
   ContainerImage,
   LogDriver,
+  NetworkMode,
   TaskDefinition,
 } from "@aws-cdk/aws-ecs"
 import { ILogGroup } from "@aws-cdk/aws-logs"
@@ -10,27 +12,41 @@ import { MackerelContainerPlatform, ServiceRole } from "./types"
 
 interface Props {
   taskDefinition: TaskDefinition
-  platform: MackerelContainerPlatform
   apiKey: string
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
   logGroup?: ILogGroup
 }
 
+const guessPlatform = (
+  taskDefinition: TaskDefinition
+): MackerelContainerPlatform | undefined => {
+  switch (taskDefinition.networkMode) {
+    case NetworkMode.AwsVpc:
+      return taskDefinition.compatibility === Compatibility.Ec2
+        ? MackerelContainerPlatform.AWSVPC
+        : MackerelContainerPlatform.FARGATE
+    case NetworkMode.Bridge:
+    case NetworkMode.None:
+    case NetworkMode.Host:
+      return MackerelContainerPlatform.ECS
+    default:
+      return undefined
+  }
+}
+
 export const addMackerelContainerAgent = (
   props: Props
 ): ContainerDefinition => {
-  const {
-    apiKey,
-    taskDefinition,
-    platform,
-    roles,
-    ignoreContainer,
-    logGroup,
-  } = props
+  const { apiKey, taskDefinition, roles, ignoreContainer, logGroup } = props
+  const guessedPlatform = guessPlatform(taskDefinition)
+  if (!guessedPlatform) {
+    throw new Error("Cannot guess platform from taskDefinition")
+  }
+
   const environment: Record<string, string> = {
     MACKEREL_APIKEY: apiKey,
-    MACKEREL_CONTAINER_PLATFORM: platform,
+    MACKEREL_CONTAINER_PLATFORM: guessedPlatform,
   }
   if (roles) {
     environment.MACKEREL_ROLES = roles
