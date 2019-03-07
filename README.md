@@ -9,24 +9,17 @@ cdk-mackerel-container-agent provides helper function that adds [mackerel-contai
 ## Synopsis
 
 ```typescript
-import {
-  AwsLogDriver,
-  Cluster,
-  ContainerImage,
-  Ec2Service,
-  Ec2TaskDefinition,
-  Protocol,
-} from "@aws-cdk/aws-ecs";
+import { addMackerelContainerAgent } from "@aereal/cdk-mackerel-container-agent";
+import { Ec2TaskDefinition } from "@aws-cdk/aws-ecs";
+import { Stack } from "@aws-cdk/cdk";
 
-const taskDef = new Ec2TaskDefinition(this, "TaskDefinition", {});
+const stack = new Stack();
+const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
 
 addMackerelContainerAgent({
-  apiKey: "YOUR_MACKEREL_APIKEY",
-  ignoreContainer: `mackerel`,
-  platform: MackerelContainerPlatform.ECS,
-  roles: [{ service: "My-service", role: "api" }],
-  taskDefinition: taskDef,
-});
+  apiKey: 'keep-my-secret',
+  taskDefinition,
+})
 
 // now `taskDef` configured well to run mackerel-container-agent
 ```
