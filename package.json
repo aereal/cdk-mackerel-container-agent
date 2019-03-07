@@ -52,6 +52,7 @@
     "typescript": "^3.3.3333"
   },
   "peerDependencies": {
+    "@aws-cdk/assets": "^0.25.1",
     "@aws-cdk/aws-ecs": "^0.25.1",
     "@aws-cdk/cdk": "^0.25.1"
   }
