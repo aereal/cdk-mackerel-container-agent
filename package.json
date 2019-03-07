@@ -10,6 +10,10 @@
     "cdk",
     "mackerel"
   ],
+  "scripts": {
+    "lint": "tslint -p .",
+    "test": "tsc -p . --noEmit"
+  },
   "devDependencies": {
     "@aws-cdk/assets": "^0.25.1",
     "@aws-cdk/assets-docker": "^0.25.1",
