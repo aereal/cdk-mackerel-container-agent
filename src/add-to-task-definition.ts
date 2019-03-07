@@ -1,21 +1,22 @@
 import {
-  AwsLogDriver,
   Compatibility,
   ContainerDefinition,
   ContainerImage,
-  LogDriver,
   NetworkMode,
   TaskDefinition,
 } from "@aws-cdk/aws-ecs"
-import { ILogGroup } from "@aws-cdk/aws-logs"
-import { MackerelContainerPlatform, ServiceRole } from "./types"
+import {
+  AdditionalContainerDefinitionOptions,
+  MackerelContainerPlatform,
+  ServiceRole,
+} from "./types"
 
 interface Props {
   taskDefinition: TaskDefinition
   apiKey: string
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
-  logGroup?: ILogGroup
+  additionalContainerOptions?: AdditionalContainerDefinitionOptions
 }
 
 const guessPlatform = (
@@ -38,13 +39,20 @@ const guessPlatform = (
 export const addMackerelContainerAgent = (
   props: Props
 ): ContainerDefinition => {
-  const { apiKey, taskDefinition, roles, ignoreContainer, logGroup } = props
+  const {
+    apiKey,
+    taskDefinition,
+    roles,
+    ignoreContainer,
+    additionalContainerOptions: opts,
+  } = props
   const guessedPlatform = guessPlatform(taskDefinition)
   if (!guessedPlatform) {
     throw new Error("Cannot guess platform from taskDefinition")
   }
 
   const environment: Record<string, string> = {
+    ...(opts && opts.environment ? opts.environment : {}),
     MACKEREL_APIKEY: apiKey,
     MACKEREL_CONTAINER_PLATFORM: guessedPlatform,
   }
@@ -56,22 +64,12 @@ export const addMackerelContainerAgent = (
   if (ignoreContainer) {
     environment.MACKEREL_IGNORE_CONTAINER = ignoreContainer
   }
-  let logging: LogDriver | undefined
-  if (logGroup) {
-    logging = new AwsLogDriver(
-      taskDefinition,
-      "MackerelContainerAgentLogDriver",
-      { streamPrefix: "mackerel", logGroup }
-    )
-  }
   const mackerelAgentContainer = taskDefinition.addContainer("mackerel-agent", {
+    ...opts,
     environment,
-    essential: false,
     image: ContainerImage.fromDockerHub(
       "mackerel/mackerel-container-agent:latest"
     ),
-    logging,
-    memoryReservationMiB: 128,
   })
   taskDefinition.addVolume({
     host: {
