@@ -11,6 +11,7 @@
     "mackerel"
   ],
   "scripts": {
+    "build": "tsc -p .",
     "lint": "tslint -p .",
     "test": "jest"
   },
