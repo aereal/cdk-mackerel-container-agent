@@ -1,0 +1,5 @@
+---
+language: nodejs
+script:
+  - yarn test
+  - yarn lint
