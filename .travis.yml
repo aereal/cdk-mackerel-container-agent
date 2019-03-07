@@ -1,5 +1,5 @@
 ---
-language: nodejs
+language: node_js
 script:
   - yarn test
   - yarn lint
