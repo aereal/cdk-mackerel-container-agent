@@ -5,7 +5,7 @@ import {
 } from "@aws-cdk/aws-ecs"
 import { Construct } from "@aws-cdk/cdk"
 import { guessPlatform } from "./guess-platform"
-import { ServiceRole } from "./types"
+import { MackerelContainerPlatform, ServiceRole } from "./types"
 
 export interface Props
   extends Pick<
@@ -57,24 +57,26 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       taskDefinition,
     })
 
-    taskDefinition.addVolume({
-      host: { sourcePath: "/cgroup" }, // TODO: support AL2
-      name: "cgroup",
-    })
-    this.addMountPoints({
-      containerPath: "/host/sys/fs/cgroup",
-      readOnly: true,
-      sourceVolume: "cgroup",
-    })
+    if (guessedPlatform === MackerelContainerPlatform.ECS) {
+      taskDefinition.addVolume({
+        host: { sourcePath: "/cgroup" }, // TODO: support AL2
+        name: "cgroup",
+      })
+      this.addMountPoints({
+        containerPath: "/host/sys/fs/cgroup",
+        readOnly: true,
+        sourceVolume: "cgroup",
+      })
 
-    taskDefinition.addVolume({
-      host: { sourcePath: "/var/run/docker.sock" },
-      name: "docker_sock",
-    })
-    this.addMountPoints({
-      containerPath: "/var/run/docker.sock",
-      readOnly: true,
-      sourceVolume: "docker_sock",
-    })
+      taskDefinition.addVolume({
+        host: { sourcePath: "/var/run/docker.sock" },
+        name: "docker_sock",
+      })
+      this.addMountPoints({
+        containerPath: "/var/run/docker.sock",
+        readOnly: true,
+        sourceVolume: "docker_sock",
+      })
+    }
   }
 }
