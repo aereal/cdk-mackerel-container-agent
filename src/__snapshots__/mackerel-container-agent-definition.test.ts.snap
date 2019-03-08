@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`addMackerelContainerAgent add to task definition with only required props 1`] = `
+exports[`MackerelContainerAgentDefinition add to task definition with only required props 1`] = `
 Object {
   "Resources": Object {
     "TaskDefinitionB36D86D9": Object {
@@ -40,7 +40,7 @@ Object {
                 "SourceVolume": "docker_sock",
               },
             ],
-            "Name": "mackerel-agent",
+            "Name": "mackerel-container-agent",
             "PortMappings": Array [],
             "Ulimits": Array [],
             "VolumesFrom": Array [],
@@ -96,7 +96,7 @@ Object {
 }
 `;
 
-exports[`addMackerelContainerAgent specify ignoreContainer 1`] = `
+exports[`MackerelContainerAgentDefinition specify ignoreContainer 1`] = `
 Object {
   "Resources": Object {
     "TaskDefinitionB36D86D9": Object {
@@ -140,7 +140,7 @@ Object {
                 "SourceVolume": "docker_sock",
               },
             ],
-            "Name": "mackerel-agent",
+            "Name": "mackerel-container-agent",
             "PortMappings": Array [],
             "Ulimits": Array [],
             "VolumesFrom": Array [],
@@ -196,7 +196,7 @@ Object {
 }
 `;
 
-exports[`addMackerelContainerAgent with roles 1`] = `
+exports[`MackerelContainerAgentDefinition with roles 1`] = `
 Object {
   "Resources": Object {
     "TaskDefinitionB36D86D9": Object {
@@ -240,7 +240,7 @@ Object {
                 "SourceVolume": "docker_sock",
               },
             ],
-            "Name": "mackerel-agent",
+            "Name": "mackerel-container-agent",
             "PortMappings": Array [],
             "Ulimits": Array [],
             "VolumesFrom": Array [],

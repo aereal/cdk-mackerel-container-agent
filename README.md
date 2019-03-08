@@ -9,14 +9,14 @@ cdk-mackerel-container-agent provides helper function that adds [mackerel-contai
 ## Synopsis
 
 ```typescript
-import { addMackerelContainerAgent } from "@aereal/cdk-mackerel-container-agent";
+import { MackerelContainerAgentDefinition } from "@aereal/cdk-mackerel-container-agent";
 import { Ec2TaskDefinition } from "@aws-cdk/aws-ecs";
 import { Stack } from "@aws-cdk/cdk";
 
 const stack = new Stack();
 const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
 
-addMackerelContainerAgent({
+new MackerelContainerAgentDefinition(stack, 'mackerel-container-agent', {
   apiKey: 'keep-my-secret',
   taskDefinition,
 })
