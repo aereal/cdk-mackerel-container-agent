@@ -70,6 +70,7 @@ export const addMackerelContainerAgent = (
     image: ContainerImage.fromDockerHub(
       "mackerel/mackerel-container-agent:latest"
     ),
+    memoryLimitMiB: 128,
   })
   taskDefinition.addVolume({
     host: {
