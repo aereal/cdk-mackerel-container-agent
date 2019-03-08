@@ -1,9 +1,6 @@
-import {
-  ContainerDefinition,
-  ContainerImage,
-  TaskDefinition,
-} from "@aws-cdk/aws-ecs"
-import { guessPlatform } from "./guess-platform"
+import { ContainerDefinition, TaskDefinition } from "@aws-cdk/aws-ecs"
+import { Construct } from "@aws-cdk/cdk"
+import { MackerelContainerAgentDefinition } from "./mackerel-container-agent-definition"
 import { AdditionalContainerDefinitionOptions, ServiceRole } from "./types"
 
 interface Props {
@@ -12,64 +9,15 @@ interface Props {
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
   additionalContainerOptions?: AdditionalContainerDefinitionOptions
+  parent: Construct
 }
 
 export const addMackerelContainerAgent = (
   props: Props
 ): ContainerDefinition => {
-  const {
-    apiKey,
-    taskDefinition,
-    roles,
-    ignoreContainer,
-    additionalContainerOptions: opts,
-  } = props
-  const guessedPlatform = guessPlatform(taskDefinition)
-  if (!guessedPlatform) {
-    throw new Error("Cannot guess platform from taskDefinition")
-  }
-
-  const environment: Record<string, string> = {
-    ...(opts && opts.environment ? opts.environment : {}),
-    MACKEREL_APIKEY: apiKey,
-    MACKEREL_CONTAINER_PLATFORM: guessedPlatform,
-  }
-  if (roles) {
-    environment.MACKEREL_ROLES = roles
-      .map(({ role, service }) => `${service}:${role}`)
-      .join(",")
-  }
-  if (ignoreContainer) {
-    environment.MACKEREL_IGNORE_CONTAINER = ignoreContainer
-  }
-  const mackerelAgentContainer = taskDefinition.addContainer("mackerel-agent", {
-    ...opts,
-    environment,
-    image: ContainerImage.fromDockerHub(
-      "mackerel/mackerel-container-agent:latest"
-    ),
+  const { additionalContainerOptions, parent, ...restProps } = props
+  return new MackerelContainerAgentDefinition(parent, "mackerel-agent", {
+    ...additionalContainerOptions,
+    ...restProps,
   })
-  taskDefinition.addVolume({
-    host: {
-      sourcePath: "/cgroup", // TODO: support AL2
-    },
-    name: "cgroup",
-  })
-  mackerelAgentContainer.addMountPoints({
-    containerPath: "/host/sys/fs/cgroup",
-    readOnly: true,
-    sourceVolume: "cgroup",
-  })
-  taskDefinition.addVolume({
-    host: {
-      sourcePath: "/var/run/docker.sock",
-    },
-    name: "docker_sock",
-  })
-  mackerelAgentContainer.addMountPoints({
-    containerPath: "/var/run/docker.sock",
-    readOnly: true,
-    sourceVolume: "docker_sock",
-  })
-  return mackerelAgentContainer
 }
