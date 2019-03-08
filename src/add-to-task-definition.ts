@@ -1,15 +1,10 @@
 import {
-  Compatibility,
   ContainerDefinition,
   ContainerImage,
-  NetworkMode,
   TaskDefinition,
 } from "@aws-cdk/aws-ecs"
-import {
-  AdditionalContainerDefinitionOptions,
-  MackerelContainerPlatform,
-  ServiceRole,
-} from "./types"
+import { guessPlatform } from "./guess-platform"
+import { AdditionalContainerDefinitionOptions, ServiceRole } from "./types"
 
 interface Props {
   taskDefinition: TaskDefinition
@@ -17,23 +12,6 @@ interface Props {
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
   additionalContainerOptions?: AdditionalContainerDefinitionOptions
-}
-
-const guessPlatform = (
-  taskDefinition: TaskDefinition
-): MackerelContainerPlatform | undefined => {
-  switch (taskDefinition.networkMode) {
-    case NetworkMode.AwsVpc:
-      return taskDefinition.compatibility === Compatibility.Ec2
-        ? MackerelContainerPlatform.AWSVPC
-        : MackerelContainerPlatform.FARGATE
-    case NetworkMode.Bridge:
-    case NetworkMode.None:
-    case NetworkMode.Host:
-      return MackerelContainerPlatform.ECS
-    default:
-      return undefined
-  }
 }
 
 export const addMackerelContainerAgent = (
