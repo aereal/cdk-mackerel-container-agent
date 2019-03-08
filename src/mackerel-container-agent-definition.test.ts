@@ -1,4 +1,8 @@
-import { Ec2TaskDefinition } from "@aws-cdk/aws-ecs"
+import {
+  Ec2TaskDefinition,
+  FargateTaskDefinition,
+  NetworkMode,
+} from "@aws-cdk/aws-ecs"
 import { Stack } from "@aws-cdk/cdk"
 import { MackerelContainerAgentDefinition } from "./mackerel-container-agent-definition"
 
@@ -52,4 +56,43 @@ describe("MackerelContainerAgentDefinition", () => {
     })
   })
 
+  describe("EC2 (awsvpc)", () => {
+    test("add to task definition", () => {
+      const stack = new Stack()
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {
+        networkMode: NetworkMode.AwsVpc,
+      })
+      const container = new MackerelContainerAgentDefinition(
+        stack,
+        "mackerel-container-agent",
+        {
+          apiKey: "keep-my-secret",
+          taskDefinition,
+        }
+      )
+      expect(container.mountPoints).toHaveLength(0)
+      expect(stack.toCloudFormation()).toMatchSnapshot()
+    })
+  })
+
+  describe("Fargate", () => {
+    test("add to task definition", () => {
+      const stack = new Stack()
+      const taskDefinition = new FargateTaskDefinition(
+        stack,
+        "TaskDefinition",
+        {}
+      )
+      const container = new MackerelContainerAgentDefinition(
+        stack,
+        "mackerel-container-agent",
+        {
+          apiKey: "keep-my-secret",
+          taskDefinition,
+        }
+      )
+      expect(container.mountPoints).toHaveLength(0)
+      expect(stack.toCloudFormation()).toMatchSnapshot()
+    })
+  })
 })
