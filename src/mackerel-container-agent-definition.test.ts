@@ -1,4 +1,8 @@
-import { Ec2TaskDefinition } from "@aws-cdk/aws-ecs"
+import {
+  Ec2TaskDefinition,
+  FargateTaskDefinition,
+  NetworkMode,
+} from "@aws-cdk/aws-ecs"
 import { Stack } from "@aws-cdk/cdk"
 import { MackerelContainerAgentDefinition } from "./mackerel-container-agent-definition"
 
@@ -45,6 +49,39 @@ describe("MackerelContainerAgentDefinition", () => {
         apiKey: "keep-my-secret",
         ignoreContainer: "(mackerel|xray)",
         taskDefinition,
+      }
+    )
+    expect(stack.toCloudFormation()).toMatchSnapshot()
+  })
+
+  test("volumes are not mounted when awsvpc / fargate", () => {
+    const stack = new Stack()
+    const taskDefinitionAwsVpc = new Ec2TaskDefinition(
+      stack,
+      "TaskDefinitionAwsVpc",
+      {
+        networkMode: NetworkMode.AwsVpc,
+      }
+    )
+    const containerAwsVpc = new MackerelContainerAgentDefinition(
+      stack,
+      "mackerel-container-agent-awsvpc",
+      {
+        apiKey: "keep-my-secret",
+        taskDefinition: taskDefinitionAwsVpc,
+      }
+    )
+    const taskDefinitionFargate = new FargateTaskDefinition(
+      stack,
+      "TaskDefinitionFargate",
+      {}
+    )
+    const containerFargate = new MackerelContainerAgentDefinition(
+      stack,
+      "mackerel-container-agent-fargate",
+      {
+        apiKey: "keep-my-secret",
+        taskDefinition: taskDefinitionFargate,
       }
     )
     expect(stack.toCloudFormation()).toMatchSnapshot()

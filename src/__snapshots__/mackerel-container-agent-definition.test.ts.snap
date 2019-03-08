@@ -196,6 +196,144 @@ Object {
 }
 `;
 
+exports[`MackerelContainerAgentDefinition volumes are not mounted when awsvpc / fargate 1`] = `
+Object {
+  "Resources": Object {
+    "TaskDefinitionAwsVpc90383BD2": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Environment": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "Value": "keep-my-secret",
+              },
+              Object {
+                "Name": "MACKEREL_CONTAINER_PLATFORM",
+                "Value": "ecs_awsvpc",
+              },
+            ],
+            "Essential": true,
+            "Image": "mackerel/mackerel-container-agent:latest",
+            "Links": Array [],
+            "LinuxParameters": Object {
+              "Capabilities": Object {
+                "Add": Array [],
+                "Drop": Array [],
+              },
+              "Devices": Array [],
+              "Tmpfs": Array [],
+            },
+            "MountPoints": Array [],
+            "Name": "mackerel-container-agent-awsvpc",
+            "PortMappings": Array [],
+            "Ulimits": Array [],
+            "VolumesFrom": Array [],
+          },
+        ],
+        "Family": "TaskDefinitionAwsVpc",
+        "NetworkMode": "awsvpc",
+        "PlacementConstraints": Array [],
+        "RequiresCompatibilities": Array [
+          "EC2",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionAwsVpcTaskRole20EF5F40",
+            "Arn",
+          ],
+        },
+        "Volumes": Array [],
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionAwsVpcTaskRole20EF5F40": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionFargate8CDB15BB": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Environment": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "Value": "keep-my-secret",
+              },
+              Object {
+                "Name": "MACKEREL_CONTAINER_PLATFORM",
+                "Value": "fargate",
+              },
+            ],
+            "Essential": true,
+            "Image": "mackerel/mackerel-container-agent:latest",
+            "Links": Array [],
+            "LinuxParameters": Object {
+              "Capabilities": Object {
+                "Add": Array [],
+                "Drop": Array [],
+              },
+              "Devices": Array [],
+              "Tmpfs": Array [],
+            },
+            "MountPoints": Array [],
+            "Name": "mackerel-container-agent-fargate",
+            "PortMappings": Array [],
+            "Ulimits": Array [],
+            "VolumesFrom": Array [],
+          },
+        ],
+        "Cpu": "256",
+        "Family": "TaskDefinitionFargate",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": Array [
+          "FARGATE",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionFargateTaskRoleD9798C07",
+            "Arn",
+          ],
+        },
+        "Volumes": Array [],
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionFargateTaskRoleD9798C07": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;
+
 exports[`MackerelContainerAgentDefinition with roles 1`] = `
 Object {
   "Resources": Object {
