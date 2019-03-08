@@ -64,6 +64,8 @@ export const addMackerelContainerAgent = (
   if (ignoreContainer) {
     environment.MACKEREL_IGNORE_CONTAINER = ignoreContainer
   }
+  const taskHasntDefaultContainer = !taskDefinition.defaultContainer
+
   const mackerelAgentContainer = taskDefinition.addContainer("mackerel-agent", {
     ...opts,
     environment,
@@ -71,6 +73,9 @@ export const addMackerelContainerAgent = (
       "mackerel/mackerel-container-agent:latest"
     ),
   })
+
+  if (taskHasntDefaultContainer) taskDefinition.defaultContainer = undefined
+
   taskDefinition.addVolume({
     host: {
       sourcePath: "/cgroup", // TODO: support AL2
