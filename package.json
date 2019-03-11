@@ -14,7 +14,10 @@
   "scripts": {
     "build": "tsc -p .",
     "lint": "tslint -p .",
-    "test": "jest"
+    "test": "jest",
+    "clean": "rm -rf ./src/**/*.js ./src/**/*.d.ts",
+    "prepack": "run-s clean build",
+    "prepublish": "run-s clean build"
   },
   "devDependencies": {
     "@aws-cdk/assets": "^0.25.1",
