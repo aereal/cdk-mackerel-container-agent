@@ -9,3 +9,10 @@ export interface ServiceRole {
   role: string
   service: string
 }
+
+export enum MackerelHostStatus {
+  Working = "working",
+  Standby = "standby",
+  Maintenance = "maintenance",
+  Poweroff = "poweroff",
+}

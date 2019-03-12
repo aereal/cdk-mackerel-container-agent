@@ -5,7 +5,7 @@ import {
 } from "@aws-cdk/aws-ecs"
 import { Construct } from "@aws-cdk/cdk"
 import { guessPlatform } from "./guess-platform"
-import { MackerelContainerPlatform, ServiceRole } from "./types"
+import { MackerelContainerPlatform, ServiceRole, MackerelHostStatus } from "./types"
 
 export interface Props
   extends Pick<
@@ -15,6 +15,7 @@ export interface Props
   apiKey: string
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
+  hostStatusOnStart?: MackerelHostStatus
 }
 
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
@@ -23,6 +24,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       apiKey,
       roles,
       ignoreContainer,
+      hostStatusOnStart,
       taskDefinition,
       ...restProps
     } = props
@@ -46,6 +48,10 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
 
     if (ignoreContainer) {
       environment.MACKEREL_IGNORE_CONTAINER = ignoreContainer
+    }
+
+    if (hostStatusOnStart) {
+      environment.MACKEREL_HOST_STATUS_ON_START = hostStatusOnStart
     }
 
     super(parent, id, {
