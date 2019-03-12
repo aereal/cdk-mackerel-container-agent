@@ -5,6 +5,7 @@ import {
 } from "@aws-cdk/aws-ecs"
 import { Stack } from "@aws-cdk/cdk"
 import { MackerelContainerAgentDefinition } from "./mackerel-container-agent-definition"
+import { MackerelHostStatus } from "./types"
 
 describe("MackerelContainerAgentDefinition", () => {
   describe("EC2", () => {
@@ -49,6 +50,21 @@ describe("MackerelContainerAgentDefinition", () => {
         {
           apiKey: "keep-my-secret",
           ignoreContainer: "(mackerel|xray)",
+          taskDefinition,
+        }
+      )
+      expect(stack.toCloudFormation()).toMatchSnapshot()
+    })
+
+    test("with hostStatusOnStart", () => {
+      const stack = new Stack()
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {})
+      const container = new MackerelContainerAgentDefinition(
+        stack,
+        "mackerel-container-agent",
+        {
+          apiKey: "keep-my-secret",
+          hostStatusOnStart: MackerelHostStatus.Working,
           taskDefinition,
         }
       )
