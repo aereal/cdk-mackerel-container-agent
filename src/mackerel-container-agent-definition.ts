@@ -5,7 +5,11 @@ import {
 } from "@aws-cdk/aws-ecs"
 import { Construct } from "@aws-cdk/cdk"
 import { guessPlatform } from "./guess-platform"
-import { MackerelContainerPlatform, ServiceRole, MackerelHostStatus } from "./types"
+import {
+  MackerelContainerPlatform,
+  MackerelHostStatus,
+  ServiceRole,
+} from "./types"
 
 export interface Props
   extends Pick<
