@@ -1,3 +1,4 @@
+import { AmazonLinuxGeneration } from "@aws-cdk/aws-ec2"
 import {
   ContainerDefinition,
   ContainerDefinitionProps,
@@ -20,6 +21,7 @@ export interface Props
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
   hostStatusOnStart?: MackerelHostStatus
+  generation?: AmazonLinuxGeneration
 }
 
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
@@ -29,6 +31,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       roles,
       ignoreContainer,
       hostStatusOnStart,
+      generation,
       taskDefinition,
       ...restProps
     } = props
@@ -68,8 +71,13 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
     })
 
     if (guessedPlatform === MackerelContainerPlatform.ECS) {
+      const sourcePath =
+        !generation || generation === AmazonLinuxGeneration.AmazonLinux
+          ? "/cgroup"
+          : "/sys/fs/cgroup"
+
       taskDefinition.addVolume({
-        host: { sourcePath: "/cgroup" }, // TODO: support AL2
+        host: { sourcePath },
         name: "cgroup",
       })
       this.addMountPoints({

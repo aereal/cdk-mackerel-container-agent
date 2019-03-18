@@ -268,6 +268,102 @@ Object {
 }
 `;
 
+exports[`MackerelContainerAgentDefinition EC2 with Amazon Linux 2 1`] = `
+Object {
+  "Resources": Object {
+    "TaskDefinitionB36D86D9": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Environment": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "Value": "keep-my-secret",
+              },
+              Object {
+                "Name": "MACKEREL_CONTAINER_PLATFORM",
+                "Value": "ecs",
+              },
+            ],
+            "Essential": true,
+            "Image": "mackerel/mackerel-container-agent:latest",
+            "Links": Array [],
+            "LinuxParameters": Object {
+              "Capabilities": Object {
+                "Add": Array [],
+                "Drop": Array [],
+              },
+              "Devices": Array [],
+              "Tmpfs": Array [],
+            },
+            "MountPoints": Array [
+              Object {
+                "ContainerPath": "/host/sys/fs/cgroup",
+                "ReadOnly": true,
+                "SourceVolume": "cgroup",
+              },
+              Object {
+                "ContainerPath": "/var/run/docker.sock",
+                "ReadOnly": true,
+                "SourceVolume": "docker_sock",
+              },
+            ],
+            "Name": "mackerel-container-agent",
+            "PortMappings": Array [],
+            "Ulimits": Array [],
+            "VolumesFrom": Array [],
+          },
+        ],
+        "Family": "TaskDefinition",
+        "NetworkMode": "bridge",
+        "PlacementConstraints": Array [],
+        "RequiresCompatibilities": Array [
+          "EC2",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionTaskRoleFD40A61D",
+            "Arn",
+          ],
+        },
+        "Volumes": Array [
+          Object {
+            "Host": Object {
+              "SourcePath": "/sys/fs/cgroup",
+            },
+            "Name": "cgroup",
+          },
+          Object {
+            "Host": Object {
+              "SourcePath": "/var/run/docker.sock",
+            },
+            "Name": "docker_sock",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionTaskRoleFD40A61D": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;
+
 exports[`MackerelContainerAgentDefinition EC2 with hostStatusOnStart 1`] = `
 Object {
   "Resources": Object {
