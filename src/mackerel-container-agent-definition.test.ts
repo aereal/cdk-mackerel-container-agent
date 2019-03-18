@@ -1,5 +1,6 @@
 import { AmazonLinuxGeneration } from "@aws-cdk/aws-ec2"
 import {
+  ContainerImage,
   Ec2TaskDefinition,
   FargateTaskDefinition,
   NetworkMode,
@@ -81,6 +82,23 @@ describe("MackerelContainerAgentDefinition", () => {
         {
           apiKey: "keep-my-secret",
           hostStatusOnStart: MackerelHostStatus.Working,
+          taskDefinition,
+        }
+      )
+      expect(stack.toCloudFormation()).toMatchSnapshot()
+    })
+
+    test("with customImage", () => {
+      const stack = new Stack()
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {})
+      const container = new MackerelContainerAgentDefinition(
+        stack,
+        "mackerel-container-agent",
+        {
+          apiKey: "keep-my-secret",
+          image: ContainerImage.fromDockerHub(
+            "somebody/some-custom-agent-image"
+          ),
           taskDefinition,
         }
       )

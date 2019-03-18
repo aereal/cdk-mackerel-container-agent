@@ -22,6 +22,7 @@ export interface Props
   ignoreContainer?: string
   hostStatusOnStart?: MackerelHostStatus
   generation?: AmazonLinuxGeneration
+  image?: ContainerImage
 }
 
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
@@ -32,6 +33,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       ignoreContainer,
       hostStatusOnStart,
       generation,
+      image,
       taskDefinition,
       ...restProps
     } = props
@@ -61,12 +63,14 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       environment.MACKEREL_HOST_STATUS_ON_START = hostStatusOnStart
     }
 
+    const containerImage =
+      image ||
+      ContainerImage.fromDockerHub("mackerel/mackerel-container-agent:latest")
+
     super(parent, id, {
       ...restProps,
       environment,
-      image: ContainerImage.fromDockerHub(
-        "mackerel/mackerel-container-agent:latest"
-      ),
+      image: containerImage,
       taskDefinition,
     })
 
