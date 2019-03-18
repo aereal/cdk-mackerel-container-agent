@@ -48,7 +48,7 @@
     "@aws-cdk/cdk": "0.25.3",
     "@aws-cdk/cx-api": "0.25.3",
     "@types/jest": "24.0.9",
-    "jest": "24.3.0",
+    "jest": "24.5.0",
     "npm-run-all": "4.1.5",
     "prettier": "1.16.4",
     "ts-jest": "24.0.0",
