@@ -64,7 +64,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
     super(parent, id, {
       ...restProps,
       environment,
-      image: ContainerImage.fromDockerHub(
+      image: ContainerImage.fromRegistry(
         "mackerel/mackerel-container-agent:latest"
       ),
       taskDefinition,
