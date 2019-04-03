@@ -20,6 +20,7 @@
     "prepublish": "run-s clean build"
   },
   "devDependencies": {
+    "@aws-cdk/assert": "0.27.0",
     "@aws-cdk/assets": "0.27.0",
     "@aws-cdk/assets-docker": "0.27.0",
     "@aws-cdk/aws-applicationautoscaling": "0.27.0",
