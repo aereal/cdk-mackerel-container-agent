@@ -62,6 +62,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
     }
 
     super(parent, id, {
+      memoryLimitMiB: 128,
       ...restProps,
       environment,
       image: ContainerImage.fromRegistry(
