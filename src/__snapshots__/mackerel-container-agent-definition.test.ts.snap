@@ -28,6 +28,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [],
             "Name": "mackerel-container-agent",
             "PortMappings": Array [],
@@ -59,7 +60,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -100,6 +111,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [
               Object {
                 "ContainerPath": "/host/sys/fs/cgroup",
@@ -155,7 +167,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -200,6 +222,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [
               Object {
                 "ContainerPath": "/host/sys/fs/cgroup",
@@ -255,7 +278,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -296,6 +329,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [
               Object {
                 "ContainerPath": "/host/sys/fs/cgroup",
@@ -351,7 +385,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -396,6 +440,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [
               Object {
                 "ContainerPath": "/host/sys/fs/cgroup",
@@ -451,7 +496,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -496,6 +551,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [
               Object {
                 "ContainerPath": "/host/sys/fs/cgroup",
@@ -551,7 +607,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],
@@ -592,6 +658,7 @@ Object {
               "Devices": Array [],
               "Tmpfs": Array [],
             },
+            "Memory": 128,
             "MountPoints": Array [],
             "Name": "mackerel-container-agent",
             "PortMappings": Array [],
@@ -624,7 +691,17 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
+                "Service": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "ecs-tasks.",
+                      Object {
+                        "Ref": "AWS::URLSuffix",
+                      },
+                    ],
+                  ],
+                },
               },
             },
           ],

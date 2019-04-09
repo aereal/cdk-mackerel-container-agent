@@ -1,3 +1,4 @@
+import { SynthUtils } from "@aws-cdk/assert"
 import { AmazonLinuxGeneration } from "@aws-cdk/aws-ec2"
 import {
   Ec2TaskDefinition,
@@ -21,7 +22,7 @@ describe("MackerelContainerAgentDefinition", () => {
           taskDefinition,
         }
       )
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
 
     test("with roles", () => {
@@ -39,7 +40,7 @@ describe("MackerelContainerAgentDefinition", () => {
           taskDefinition,
         }
       )
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
 
     test("specify ignoreContainer", () => {
@@ -54,7 +55,7 @@ describe("MackerelContainerAgentDefinition", () => {
           taskDefinition,
         }
       )
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
 
     test("with Amazon Linux 2", () => {
@@ -69,7 +70,7 @@ describe("MackerelContainerAgentDefinition", () => {
           taskDefinition,
         }
       )
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
 
     test("with hostStatusOnStart", () => {
@@ -84,7 +85,7 @@ describe("MackerelContainerAgentDefinition", () => {
           taskDefinition,
         }
       )
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
   })
 
@@ -103,7 +104,7 @@ describe("MackerelContainerAgentDefinition", () => {
         }
       )
       expect(container.mountPoints).toHaveLength(0)
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
   })
 
@@ -124,7 +125,7 @@ describe("MackerelContainerAgentDefinition", () => {
         }
       )
       expect(container.mountPoints).toHaveLength(0)
-      expect(stack.toCloudFormation()).toMatchSnapshot()
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
     })
   })
 })
