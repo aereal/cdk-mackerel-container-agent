@@ -55,7 +55,7 @@
     "@aws-cdk/aws-iam" "^0.31.0"
     "@aws-cdk/cdk" "^0.31.0"
 
-"@aws-cdk/aws-autoscaling-common@^0.31.0":
+"@aws-cdk/aws-autoscaling-common@0.31.0", "@aws-cdk/aws-autoscaling-common@^0.31.0":
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-autoscaling-common/-/aws-autoscaling-common-0.31.0.tgz#08d54fe7bd77eea0c94d871fef554f76c233096c"
   integrity sha512-nGRY5sguqV09Dt/9gPG3pZigNSbtqD6OiUu2XTS4T2t8SW/llUAafwmOPvMfgcdjdWwCaupHXOWwt0G7ClzdhA==
@@ -89,7 +89,7 @@
     "@aws-cdk/aws-route53" "^0.31.0"
     "@aws-cdk/cdk" "^0.31.0"
 
-"@aws-cdk/aws-cloudformation@^0.31.0":
+"@aws-cdk/aws-cloudformation@0.31.0", "@aws-cdk/aws-cloudformation@^0.31.0":
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudformation/-/aws-cloudformation-0.31.0.tgz#e89267e598e813b191a5b521092ca7e29fecd44c"
   integrity sha512-dEspOuA+/HgYGyWTAEaW11OYAQyDtHRwgLFF6PVN7MujGoc65gyt1VH1+jXljG2XnbbHkLm9OynyAgeRVZEvoQ==
@@ -266,7 +266,7 @@
     "@aws-cdk/aws-s3-notifications" "^0.31.0"
     "@aws-cdk/cdk" "^0.31.0"
 
-"@aws-cdk/aws-secretsmanager@^0.31.0":
+"@aws-cdk/aws-secretsmanager@0.31.0", "@aws-cdk/aws-secretsmanager@^0.31.0":
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-secretsmanager/-/aws-secretsmanager-0.31.0.tgz#37e8082128c371f4b46958691c4db62fbbcfb1f8"
   integrity sha512-/f6G2/kaUdTEv8rWQrLVp+QKFls+PnTtoykKZ9DCnlrb37+B7OAbr2C0UDe4PnFju5l0uD+Db55RG/grEv39cw==
@@ -277,7 +277,7 @@
     "@aws-cdk/aws-lambda" "^0.31.0"
     "@aws-cdk/cdk" "^0.31.0"
 
-"@aws-cdk/aws-servicediscovery@^0.31.0":
+"@aws-cdk/aws-servicediscovery@0.31.0", "@aws-cdk/aws-servicediscovery@^0.31.0":
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-servicediscovery/-/aws-servicediscovery-0.31.0.tgz#6a77dd1b5b96d809bb86fede664541e52590267b"
   integrity sha512-Q3FHJNSvwt98VlGH3EEzLRLesX5ueeZOpg3AAS2boPx7tAPb+msO0RRNLZj5BwRXdxzjFIBApRhsKvK868arWQ==
@@ -356,7 +356,7 @@
   resolved "https://registry.yarnpkg.com/@aws-cdk/cx-api/-/cx-api-0.31.0.tgz#e83394c17589d41219eed14193bfd137e8f741db"
   integrity sha512-rtsxW20267r6FY2xUKZRf10zdACULTf7PV2fVrdc6uhZcN/wS2u54LKmtP+OeAfzqit6WZ/M1LxVvKdkIgEWTg==
 
-"@aws-cdk/region-info@^0.31.0":
+"@aws-cdk/region-info@0.31.0", "@aws-cdk/region-info@^0.31.0":
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/region-info/-/region-info-0.31.0.tgz#c56faa0d5b1d7487681cb0e00471709e7fb69bc7"
   integrity sha512-nrqHi6vx9A36tO4meog0vhMjxmVvQGMCyTLFWj+6wYDf2GZGBq/mzaLvtorl/wn1104eTHWJ39RMOAPclPlC+Q==
