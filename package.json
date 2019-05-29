@@ -61,7 +61,7 @@
     "tslint": "5.16.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-prettier": "2.0.1",
-    "typescript": "3.4.5"
+    "typescript": "3.5.1"
   },
   "peerDependencies": {
     "@aws-cdk/aws-ecs": "^0.27.0 || ^0.28.0 || ^0.29.0 || ^0.30.0 || ^0.31.0",
