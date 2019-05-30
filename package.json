@@ -30,8 +30,6 @@
     "@aws-cdk/aws-certificatemanager": "0.32.0",
     "@aws-cdk/aws-cloudformation": "0.32.0",
     "@aws-cdk/aws-cloudwatch": "0.32.0",
-    "@aws-cdk/aws-codedeploy-api": "0.31.0",
-    "@aws-cdk/aws-codepipeline-api": "0.28.0",
     "@aws-cdk/aws-ec2": "0.32.0",
     "@aws-cdk/aws-ecr": "0.32.0",
     "@aws-cdk/aws-ecs": "0.32.0",
@@ -64,7 +62,8 @@
     "typescript": "3.4.5"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-ecs": "^0.27.0 || ^0.28.0 || ^0.29.0 || ^0.30.0 || ^0.31.0 || ^0.32.0",
-    "@aws-cdk/cdk": "^0.27.0 || ^0.28.0 || ^0.29.0 || ^0.30.0 || ^0.31.0 || ^0.32.0"
+    "@aws-cdk/aws-ecs": "^0.32.0",
+    "@aws-cdk/cdk": "^0.32.0",
+    "@aws-cdk/aws-route53-targets": "^0.32.0"
   }
 }

@@ -119,18 +119,6 @@
     "@aws-cdk/aws-iam" "^0.32.0"
     "@aws-cdk/cdk" "^0.32.0"
 
-"@aws-cdk/aws-codedeploy-api@0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-codedeploy-api/-/aws-codedeploy-api-0.31.0.tgz#42e5bfa4a564cb00440582d27181672e6f51a0aa"
-  integrity sha512-BA1l1f1oJPJblMXD4ubhJigrI/SGN7YNuNSaShfz6VtL9s64ad1GaLnn058pfR/j8Uw4S2umw9N/HHJsi4YZHw==
-  dependencies:
-    "@aws-cdk/cdk" "^0.31.0"
-
-"@aws-cdk/aws-codepipeline-api@0.28.0":
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-codepipeline-api/-/aws-codepipeline-api-0.28.0.tgz#1aa88c4a32a27ddb0c597368f37bdfaeccb1fee5"
-  integrity sha512-UzJcGI7FFwbpDADzgUiKIH1SuVDvcG4tZNvVRj6t4CwoMTLLCt8MiVkZCyyKos13wXciq4yHJOYtFnjDEvn5xg==
-
 "@aws-cdk/aws-ec2@0.32.0", "@aws-cdk/aws-ec2@^0.32.0":
   version "0.32.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ec2/-/aws-ec2-0.32.0.tgz#b0da79b9cd628b09abc7cfed481457b5304ee044"
@@ -350,13 +338,6 @@
   dependencies:
     "@aws-cdk/cx-api" "^0.32.0"
 
-"@aws-cdk/cdk@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/cdk/-/cdk-0.31.0.tgz#263ff51b5df18cc4877eddd0aa8092553016836c"
-  integrity sha512-61JW4pKm9VYomVOq17kR3rz8XF1IhtFEMawCs+kuKAUF8Uwlioitv4J4yo+tgrYDUfskyvG+JG53Umb895DsRQ==
-  dependencies:
-    "@aws-cdk/cx-api" "^0.31.0"
-
 "@aws-cdk/cfnspec@^0.32.0":
   version "0.32.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/cfnspec/-/cfnspec-0.32.0.tgz#da323b1b4fc79496858ef66b21bef8d68d96a488"
@@ -382,11 +363,6 @@
   version "0.32.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/cx-api/-/cx-api-0.32.0.tgz#6b0c4944d44e22053b1bbba541d67ace34250d51"
   integrity sha512-cuES2BrQqYchwA+t+ZYxgnqJQcKBaazLEujrsy+0IOXvqeHmCE1wlAC741H1z9Yi47fprUPsZO5GrKu7BPlahQ==
-
-"@aws-cdk/cx-api@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/cx-api/-/cx-api-0.31.0.tgz#e83394c17589d41219eed14193bfd137e8f741db"
-  integrity sha512-rtsxW20267r6FY2xUKZRf10zdACULTf7PV2fVrdc6uhZcN/wS2u54LKmtP+OeAfzqit6WZ/M1LxVvKdkIgEWTg==
 
 "@aws-cdk/region-info@0.32.0", "@aws-cdk/region-info@^0.32.0":
   version "0.32.0"
