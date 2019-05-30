@@ -20,14 +20,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [],
             "Name": "mackerel-container-agent",
@@ -38,7 +30,6 @@ Object {
         ],
         "Family": "TaskDefinition",
         "NetworkMode": "awsvpc",
-        "PlacementConstraints": Array [],
         "RequiresCompatibilities": Array [
           "EC2",
         ],
@@ -103,14 +94,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [
               Object {
@@ -132,7 +115,6 @@ Object {
         ],
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
-        "PlacementConstraints": Array [],
         "RequiresCompatibilities": Array [
           "EC2",
         ],
@@ -214,14 +196,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [
               Object {
@@ -243,7 +217,6 @@ Object {
         ],
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
-        "PlacementConstraints": Array [],
         "RequiresCompatibilities": Array [
           "EC2",
         ],
@@ -321,14 +294,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [
               Object {
@@ -350,7 +315,6 @@ Object {
         ],
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
-        "PlacementConstraints": Array [],
         "RequiresCompatibilities": Array [
           "EC2",
         ],
@@ -432,14 +396,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [
               Object {
@@ -461,7 +417,6 @@ Object {
         ],
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
-        "PlacementConstraints": Array [],
         "RequiresCompatibilities": Array [
           "EC2",
         ],
@@ -543,14 +498,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [
               Object {
@@ -572,7 +519,6 @@ Object {
         ],
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
-        "PlacementConstraints": Array [],
         "RequiresCompatibilities": Array [
           "EC2",
         ],
@@ -650,14 +596,6 @@ Object {
             "Essential": true,
             "Image": "mackerel/mackerel-container-agent:latest",
             "Links": Array [],
-            "LinuxParameters": Object {
-              "Capabilities": Object {
-                "Add": Array [],
-                "Drop": Array [],
-              },
-              "Devices": Array [],
-              "Tmpfs": Array [],
-            },
             "Memory": 128,
             "MountPoints": Array [],
             "Name": "mackerel-container-agent",
