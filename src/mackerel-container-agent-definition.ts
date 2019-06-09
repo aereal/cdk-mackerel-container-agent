@@ -5,7 +5,6 @@ import {
   ContainerImage,
 } from "@aws-cdk/aws-ecs"
 import { Construct } from "@aws-cdk/cdk"
-import { guessPlatform } from "./guess-platform"
 import {
   MackerelContainerPlatform,
   MackerelHostStatus,
@@ -21,7 +20,6 @@ export interface Props
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
   hostStatusOnStart?: MackerelHostStatus
-  generation?: AmazonLinuxGeneration
 }
 
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
@@ -31,20 +29,14 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       roles,
       ignoreContainer,
       hostStatusOnStart,
-      generation,
       taskDefinition,
       ...restProps
     } = props
 
-    const guessedPlatform = guessPlatform(taskDefinition)
-    if (!guessedPlatform) {
-      throw new Error("Cannot guess platform from taskDefinition")
-    }
-
     const environment: Record<string, string> = {
       ...(props && props.environment ? props.environment : {}),
       MACKEREL_APIKEY: apiKey,
-      MACKEREL_CONTAINER_PLATFORM: guessedPlatform,
+      MACKEREL_CONTAINER_PLATFORM: "ecs",
     }
 
     if (roles) {
@@ -71,31 +63,5 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       taskDefinition,
     })
 
-    if (guessedPlatform === MackerelContainerPlatform.ECS) {
-      const sourcePath =
-        !generation || generation === AmazonLinuxGeneration.AmazonLinux
-          ? "/cgroup"
-          : "/sys/fs/cgroup"
-
-      taskDefinition.addVolume({
-        host: { sourcePath },
-        name: "cgroup",
-      })
-      this.addMountPoints({
-        containerPath: "/host/sys/fs/cgroup",
-        readOnly: true,
-        sourceVolume: "cgroup",
-      })
-
-      taskDefinition.addVolume({
-        host: { sourcePath: "/var/run/docker.sock" },
-        name: "docker_sock",
-      })
-      this.addMountPoints({
-        containerPath: "/var/run/docker.sock",
-        readOnly: true,
-        sourceVolume: "docker_sock",
-      })
-    }
   }
 }
