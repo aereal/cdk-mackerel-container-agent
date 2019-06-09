@@ -11,11 +11,7 @@ import {
   ServiceRole,
 } from "./types"
 
-export interface Props
-  extends Pick<
-    ContainerDefinitionProps,
-    Exclude<keyof ContainerDefinitionProps, "image">
-  > {
+export interface Props extends Omit<ContainerDefinitionProps, "image"> {
   apiKey: string
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
