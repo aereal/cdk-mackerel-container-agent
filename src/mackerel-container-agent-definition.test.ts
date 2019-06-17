@@ -1,5 +1,4 @@
 import { SynthUtils } from "@aws-cdk/assert"
-import { AmazonLinuxGeneration } from "@aws-cdk/aws-ec2"
 import {
   Ec2TaskDefinition,
   FargateTaskDefinition,
@@ -52,21 +51,6 @@ describe("MackerelContainerAgentDefinition", () => {
         {
           apiKey: "keep-my-secret",
           ignoreContainer: "(mackerel|xray)",
-          taskDefinition,
-        }
-      )
-      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
-    })
-
-    test("with Amazon Linux 2", () => {
-      const stack = new Stack()
-      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {})
-      const container = new MackerelContainerAgentDefinition(
-        stack,
-        "mackerel-container-agent",
-        {
-          apiKey: "keep-my-secret",
-          generation: AmazonLinuxGeneration.AmazonLinux2,
           taskDefinition,
         }
       )
