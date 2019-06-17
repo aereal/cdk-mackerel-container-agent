@@ -62,6 +62,5 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       ),
       taskDefinition,
     })
-
   }
 }
