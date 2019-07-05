@@ -1,4 +1,3 @@
-import { AmazonLinuxGeneration } from "@aws-cdk/aws-ec2"
 import {
   ContainerDefinition,
   ContainerDefinitionProps,
