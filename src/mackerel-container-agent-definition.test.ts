@@ -4,7 +4,7 @@ import {
   FargateTaskDefinition,
   NetworkMode,
 } from "@aws-cdk/aws-ecs"
-import { Stack } from "@aws-cdk/cdk"
+import { Stack } from "@aws-cdk/core"
 import { MackerelContainerAgentDefinition } from "./mackerel-container-agent-definition"
 import { MackerelHostStatus } from "./types"
 
@@ -77,7 +77,7 @@ describe("MackerelContainerAgentDefinition", () => {
     test("add to task definition", () => {
       const stack = new Stack()
       const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {
-        networkMode: NetworkMode.AwsVpc,
+        networkMode: NetworkMode.AWS_VPC,
       })
       const container = new MackerelContainerAgentDefinition(
         stack,
