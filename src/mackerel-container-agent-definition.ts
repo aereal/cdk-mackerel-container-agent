@@ -1,4 +1,3 @@
-import { AmazonLinuxGeneration } from "@aws-cdk/aws-ec2"
 import {
   ContainerDefinition,
   ContainerDefinitionProps,
@@ -11,15 +10,21 @@ import {
   ServiceRole,
 } from "./types"
 
-export interface Props
-  extends Pick<
-    ContainerDefinitionProps,
-    Exclude<keyof ContainerDefinitionProps, "image">
-  > {
+export interface Props extends Omit<ContainerDefinitionProps, "image"> {
   apiKey: string
   roles?: ReadonlyArray<ServiceRole>
   ignoreContainer?: string
   hostStatusOnStart?: MackerelHostStatus
+  image?: ContainerImage
+}
+
+export const MackerelContainerAgentImage = {
+  Latest: ContainerImage.fromRegistry(
+    "mackerel/mackerel-container-agent:latest"
+  ),
+  Plugins: ContainerImage.fromRegistry(
+    "mackerel/mackerel-container-agent:plugins"
+  ),
 }
 
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
@@ -29,6 +34,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       roles,
       ignoreContainer,
       hostStatusOnStart,
+      image,
       taskDefinition,
       ...restProps
     } = props
@@ -38,6 +44,8 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       MACKEREL_APIKEY: apiKey,
       MACKEREL_CONTAINER_PLATFORM: "ecs",
     }
+
+    const containerImage = image || MackerelContainerAgentImage.Latest
 
     if (roles) {
       environment.MACKEREL_ROLES = roles
@@ -57,9 +65,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       memoryLimitMiB: 128,
       ...restProps,
       environment,
-      image: ContainerImage.fromRegistry(
-        "mackerel/mackerel-container-agent:latest"
-      ),
+      image: containerImage,
       taskDefinition,
     })
   }

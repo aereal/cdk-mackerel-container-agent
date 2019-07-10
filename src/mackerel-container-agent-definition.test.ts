@@ -1,11 +1,15 @@
 import { SynthUtils } from "@aws-cdk/assert"
 import {
+  ContainerImage,
   Ec2TaskDefinition,
   FargateTaskDefinition,
   NetworkMode,
 } from "@aws-cdk/aws-ecs"
 import { Stack } from "@aws-cdk/cdk"
-import { MackerelContainerAgentDefinition } from "./mackerel-container-agent-definition"
+import {
+  MackerelContainerAgentDefinition,
+  MackerelContainerAgentImage,
+} from "./mackerel-container-agent-definition"
 import { MackerelHostStatus } from "./types"
 
 describe("MackerelContainerAgentDefinition", () => {
@@ -66,6 +70,38 @@ describe("MackerelContainerAgentDefinition", () => {
         {
           apiKey: "keep-my-secret",
           hostStatusOnStart: MackerelHostStatus.Working,
+          taskDefinition,
+        }
+      )
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
+    })
+
+    test("with customImage", () => {
+      const stack = new Stack()
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {})
+      const container = new MackerelContainerAgentDefinition(
+        stack,
+        "mackerel-container-agent",
+        {
+          apiKey: "keep-my-secret",
+          image: ContainerImage.fromRegistry(
+            "somebody/some-custom-agent-image"
+          ),
+          taskDefinition,
+        }
+      )
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot()
+    })
+
+    test("with `plugins` image", () => {
+      const stack = new Stack()
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {})
+      const container = new MackerelContainerAgentDefinition(
+        stack,
+        "mackerel-container-agent",
+        {
+          apiKey: "keep-my-secret",
+          image: MackerelContainerAgentImage.Plugins,
           taskDefinition,
         }
       )
