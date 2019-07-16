@@ -3,7 +3,7 @@ import {
   ContainerDefinitionProps,
   ContainerImage,
 } from "@aws-cdk/aws-ecs"
-import { Construct } from "@aws-cdk/cdk"
+import { Construct } from "@aws-cdk/core"
 import {
   MackerelContainerPlatform,
   MackerelHostStatus,
