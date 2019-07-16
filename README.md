@@ -2,8 +2,6 @@
 
 # cdk-mackerel-container-agent
 
-:warning: This library is still experimental because underlying [AWS CDK][aws-cdk] is in developer preview release.
-
 cdk-mackerel-container-agent provides helper function that adds [mackerel-container-agent][] to your ECS/EKS task definition.
 
 ## Synopsis
