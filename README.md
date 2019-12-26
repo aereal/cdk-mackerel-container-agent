@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/aereal/cdk-mackerel-container-agent.png?branch=master)][travis]
-
 # cdk-mackerel-container-agent
 
 cdk-mackerel-container-agent provides helper function that adds [mackerel-container-agent][] to your ECS/EKS task definition.
@@ -22,6 +20,5 @@ new MackerelContainerAgentDefinition(stack, 'mackerel-container-agent', {
 // now `taskDef` configured well to run mackerel-container-agent
 ```
 
-[travis]: https://travis-ci.org/aereal/cdk-mackerel-container-agent
 [aws-cdk]: https://github.com/awslabs/aws-cdk
 [mackerel-container-agent]: https://github.com/mackerelio/mackerel-container-agent
