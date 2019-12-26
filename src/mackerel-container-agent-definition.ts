@@ -1,13 +1,15 @@
 import {
   ContainerDefinition,
   ContainerDefinitionProps,
-  ContainerImage
+  ContainerImage,
+  Secret
 } from "@aws-cdk/aws-ecs";
 import { Construct } from "@aws-cdk/core";
 import { MackerelHostStatus, ServiceRole } from "./types";
 
 export interface Props extends Omit<ContainerDefinitionProps, "image"> {
-  unsafeBareAPIKey: string;
+  apiKey?: Secret;
+  unsafeBareAPIKey?: string;
   roles?: readonly ServiceRole[];
   ignoreContainer?: string;
   hostStatusOnStart?: MackerelHostStatus;
@@ -26,6 +28,7 @@ export const MackerelContainerAgentImage = {
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
   constructor(parent: Construct, id: string, props: Props) {
     const {
+      apiKey,
       unsafeBareAPIKey,
       roles,
       ignoreContainer,
@@ -35,10 +38,25 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       ...restProps
     } = props;
 
+    if (unsafeBareAPIKey === undefined && apiKey === undefined) {
+      throw new Error(
+        "Either apiKey or unsafeBareAPIKey must be passed (apiKey as Secret highly recommended)"
+      );
+    }
+
     const environment: Record<string, string> = {
       ...(props && props.environment ? props.environment : {}),
-      MACKEREL_APIKEY: unsafeBareAPIKey,
+      ...(unsafeBareAPIKey !== undefined
+        ? {
+            MACKEREL_APIKEY: unsafeBareAPIKey
+          }
+        : {}),
       MACKEREL_CONTAINER_PLATFORM: "ecs"
+    };
+
+    const secrets: Record<string, Secret> = {
+      ...props.secrets,
+      ...(apiKey !== undefined ? { MACKEREL_APIKEY: apiKey } : {})
     };
 
     const containerImage = image || MackerelContainerAgentImage.Latest;
@@ -62,6 +80,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       ...restProps,
       environment,
       image: containerImage,
+      secrets,
       taskDefinition
     });
   }
