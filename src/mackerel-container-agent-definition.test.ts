@@ -32,6 +32,31 @@ describe("MackerelContainerAgentDefinition", () => {
       ).toThrowError(errorMessage);
     });
 
+    test("both passed", () => {
+      const stack = new Stack();
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
+      expect(
+        () =>
+          new MackerelContainerAgentDefinition(
+            stack,
+            "mackerel-container-agent",
+            {
+              taskDefinition,
+              apiKey: Secret.fromSecretsManager(
+                SecretsManagerSecret.fromSecretArn(
+                  stack,
+                  "ImportedSecret",
+                  "dummy-arn"
+                )
+              ),
+              unsafeBareAPIKey: "keep-my-secret"
+            }
+          )
+      ).toThrowError(
+        "Just one of either apiKey unsafeBareAPIKey can be passed"
+      );
+    });
+
     test("only apiKey passed", () => {
       const stack = new Stack();
       const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});

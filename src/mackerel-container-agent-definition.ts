@@ -44,6 +44,12 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       );
     }
 
+    if (unsafeBareAPIKey !== undefined && apiKey !== undefined) {
+      throw new Error(
+        "Just one of either apiKey unsafeBareAPIKey can be passed"
+      );
+    }
+
     const environment: Record<string, string> = {
       ...(props && props.environment ? props.environment : {}),
       ...(unsafeBareAPIKey !== undefined
