@@ -1,6 +1,6 @@
 {
   "name": "@aereal/cdk-mackerel-container-agent",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "repository": "git@github.com:aereal/cdk-mackerel-container-agent.git",
