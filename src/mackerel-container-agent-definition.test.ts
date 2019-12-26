@@ -21,7 +21,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           taskDefinition
         }
       );
@@ -35,7 +35,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           roles: [
             { service: "My-service", role: "db" },
             { service: "My-service", role: "proxy" }
@@ -53,7 +53,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           ignoreContainer: "(mackerel|xray)",
           taskDefinition
         }
@@ -68,7 +68,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           hostStatusOnStart: MackerelHostStatus.Working,
           taskDefinition
         }
@@ -83,7 +83,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           image: ContainerImage.fromRegistry(
             "somebody/some-custom-agent-image"
           ),
@@ -100,7 +100,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           image: MackerelContainerAgentImage.Plugins,
           taskDefinition
         }
@@ -119,7 +119,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           taskDefinition
         }
       );
@@ -140,7 +140,7 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           taskDefinition
         }
       );

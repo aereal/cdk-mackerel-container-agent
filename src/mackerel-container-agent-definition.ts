@@ -4,14 +4,10 @@ import {
   ContainerImage
 } from "@aws-cdk/aws-ecs";
 import { Construct } from "@aws-cdk/core";
-import {
-  MackerelContainerPlatform,
-  MackerelHostStatus,
-  ServiceRole
-} from "./types";
+import { MackerelHostStatus, ServiceRole } from "./types";
 
 export interface Props extends Omit<ContainerDefinitionProps, "image"> {
-  apiKey: string;
+  unsafeBareAPIKey: string;
   roles?: readonly ServiceRole[];
   ignoreContainer?: string;
   hostStatusOnStart?: MackerelHostStatus;
@@ -30,7 +26,7 @@ export const MackerelContainerAgentImage = {
 export class MackerelContainerAgentDefinition extends ContainerDefinition {
   constructor(parent: Construct, id: string, props: Props) {
     const {
-      apiKey,
+      unsafeBareAPIKey,
       roles,
       ignoreContainer,
       hostStatusOnStart,
@@ -41,7 +37,7 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
 
     const environment: Record<string, string> = {
       ...(props && props.environment ? props.environment : {}),
-      MACKEREL_APIKEY: apiKey,
+      MACKEREL_APIKEY: unsafeBareAPIKey,
       MACKEREL_CONTAINER_PLATFORM: "ecs"
     };
 
