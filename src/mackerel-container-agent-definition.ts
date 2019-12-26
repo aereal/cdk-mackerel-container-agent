@@ -2,7 +2,8 @@ import {
   ContainerDefinition,
   ContainerDefinitionProps,
   ContainerImage,
-  Secret
+  Secret,
+  Scope
 } from "@aws-cdk/aws-ecs";
 import { Construct } from "@aws-cdk/core";
 import { MackerelHostStatus, ServiceRole } from "./types";
@@ -89,5 +90,11 @@ export class MackerelContainerAgentDefinition extends ContainerDefinition {
       secrets,
       taskDefinition
     });
+
+    if (unsafeBareAPIKey !== undefined) {
+      this.node.addWarning(
+        "unsafeBareAPIKey is deprecated and will be removed at next major version. Please use apiKey: Secret"
+      );
+    }
   }
 }
