@@ -1,9 +1,11 @@
 import { SynthUtils } from "@aws-cdk/assert";
+import { Secret as SecretsManagerSecret } from "@aws-cdk/aws-secretsmanager";
 import {
   ContainerImage,
   Ec2TaskDefinition,
   FargateTaskDefinition,
-  NetworkMode
+  NetworkMode,
+  Secret
 } from "@aws-cdk/aws-ecs";
 import { Stack } from "@aws-cdk/core";
 import {
@@ -13,15 +15,112 @@ import {
 import { MackerelHostStatus } from "./types";
 
 describe("MackerelContainerAgentDefinition", () => {
+  describe("Common", () => {
+    const errorMessage =
+      "Either apiKey or unsafeBareAPIKey must be passed (apiKey as Secret highly recommended)";
+
+    test("neither apiKey nor unsafeBareAPIKey passed", () => {
+      const stack = new Stack();
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
+      expect(
+        () =>
+          new MackerelContainerAgentDefinition(
+            stack,
+            "mackerel-container-agent",
+            { taskDefinition }
+          )
+      ).toThrowError(errorMessage);
+    });
+
+    test("both passed", () => {
+      const stack = new Stack();
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
+      expect(
+        () =>
+          new MackerelContainerAgentDefinition(
+            stack,
+            "mackerel-container-agent",
+            {
+              taskDefinition,
+              apiKey: Secret.fromSecretsManager(
+                SecretsManagerSecret.fromSecretArn(
+                  stack,
+                  "ImportedSecret",
+                  "dummy-arn"
+                )
+              ),
+              unsafeBareAPIKey: "keep-my-secret"
+            }
+          )
+      ).toThrowError(
+        "Just one of either apiKey unsafeBareAPIKey can be passed"
+      );
+    });
+
+    test("only apiKey passed", () => {
+      const stack = new Stack();
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
+      expect(
+        () =>
+          new MackerelContainerAgentDefinition(
+            stack,
+            "mackerel-container-agent",
+            {
+              taskDefinition,
+              apiKey: Secret.fromSecretsManager(
+                SecretsManagerSecret.fromSecretArn(
+                  stack,
+                  "ImportedSecret",
+                  "dummy-arn"
+                )
+              )
+            }
+          )
+      ).not.toThrowError(errorMessage);
+    });
+
+    test("only unsafeBareAPIKey passed", () => {
+      const stack = new Stack();
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
+      expect(
+        () =>
+          new MackerelContainerAgentDefinition(
+            stack,
+            "mackerel-container-agent",
+            {
+              taskDefinition,
+              unsafeBareAPIKey: "keep-my-secret"
+            }
+          )
+      ).not.toThrowError(errorMessage);
+    });
+  });
+
   describe("EC2", () => {
     test("add to task definition with only required props", () => {
+      const stack = new Stack();
+      const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
+      new MackerelContainerAgentDefinition(stack, "mackerel-container-agent", {
+        apiKey: Secret.fromSecretsManager(
+          SecretsManagerSecret.fromSecretArn(
+            stack,
+            "ImportedSecret",
+            "dummy-arn"
+          )
+        ),
+        taskDefinition
+      });
+      expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
+    });
+
+    test("pass unsafeBareAPIKey", () => {
       const stack = new Stack();
       const taskDefinition = new Ec2TaskDefinition(stack, "TaskDefinition", {});
       const container = new MackerelContainerAgentDefinition(
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          unsafeBareAPIKey: "keep-my-secret",
           taskDefinition
         }
       );
@@ -35,7 +134,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           roles: [
             { service: "My-service", role: "db" },
             { service: "My-service", role: "proxy" }
@@ -53,7 +158,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           ignoreContainer: "(mackerel|xray)",
           taskDefinition
         }
@@ -68,7 +179,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           hostStatusOnStart: MackerelHostStatus.Working,
           taskDefinition
         }
@@ -83,7 +200,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           image: ContainerImage.fromRegistry(
             "somebody/some-custom-agent-image"
           ),
@@ -100,7 +223,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           image: MackerelContainerAgentImage.Plugins,
           taskDefinition
         }
@@ -119,7 +248,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           taskDefinition
         }
       );
@@ -140,7 +275,13 @@ describe("MackerelContainerAgentDefinition", () => {
         stack,
         "mackerel-container-agent",
         {
-          apiKey: "keep-my-secret",
+          apiKey: Secret.fromSecretsManager(
+            SecretsManagerSecret.fromSecretArn(
+              stack,
+              "ImportedSecret",
+              "dummy-arn"
+            )
+          ),
           taskDefinition
         }
       );

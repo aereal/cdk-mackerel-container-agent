@@ -9,10 +9,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -21,8 +17,20 @@ Object {
             "Image": "mackerel/mackerel-container-agent:latest",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "NetworkMode": "awsvpc",
         "RequiresCompatibilities": Array [
@@ -36,6 +44,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
@@ -67,6 +113,110 @@ Object {
           Object {
             "Environment": Array [
               Object {
+                "Name": "MACKEREL_CONTAINER_PLATFORM",
+                "Value": "ecs",
+              },
+            ],
+            "Essential": true,
+            "Image": "mackerel/mackerel-container-agent:latest",
+            "Memory": 128,
+            "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
+          },
+        ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
+        "Family": "TaskDefinition",
+        "NetworkMode": "bridge",
+        "RequiresCompatibilities": Array [
+          "EC2",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionTaskRoleFD40A61D",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "TaskDefinitionTaskRoleFD40A61D": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+}
+`;
+
+exports[`MackerelContainerAgentDefinition EC2 pass unsafeBareAPIKey 1`] = `
+Object {
+  "Resources": Object {
+    "TaskDefinitionB36D86D9": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Environment": Array [
+              Object {
                 "Name": "MACKEREL_APIKEY",
                 "Value": "keep-my-secret",
               },
@@ -79,6 +229,7 @@ Object {
             "Image": "mackerel/mackerel-container-agent:latest",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [],
           },
         ],
         "Family": "TaskDefinition",
@@ -125,10 +276,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -141,8 +288,20 @@ Object {
             "Image": "mackerel/mackerel-container-agent:latest",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": Array [
@@ -156,6 +315,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
@@ -187,10 +384,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -199,8 +392,20 @@ Object {
             "Image": "mackerel/mackerel-container-agent:plugins",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": Array [
@@ -214,6 +419,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
@@ -245,10 +488,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -257,8 +496,20 @@ Object {
             "Image": "somebody/some-custom-agent-image",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": Array [
@@ -272,6 +523,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
@@ -303,10 +592,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -319,8 +604,20 @@ Object {
             "Image": "mackerel/mackerel-container-agent:latest",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": Array [
@@ -334,6 +631,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
@@ -365,10 +700,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -381,8 +712,20 @@ Object {
             "Image": "mackerel/mackerel-container-agent:latest",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "NetworkMode": "bridge",
         "RequiresCompatibilities": Array [
@@ -396,6 +739,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
@@ -427,10 +808,6 @@ Object {
           Object {
             "Environment": Array [
               Object {
-                "Name": "MACKEREL_APIKEY",
-                "Value": "keep-my-secret",
-              },
-              Object {
                 "Name": "MACKEREL_CONTAINER_PLATFORM",
                 "Value": "ecs",
               },
@@ -439,9 +816,21 @@ Object {
             "Image": "mackerel/mackerel-container-agent:latest",
             "Memory": 128,
             "Name": "mackerel-container-agent",
+            "Secrets": Array [
+              Object {
+                "Name": "MACKEREL_APIKEY",
+                "ValueFrom": "dummy-arn",
+              },
+            ],
           },
         ],
         "Cpu": "256",
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "TaskDefinitionExecutionRole8D61C2FB",
+            "Arn",
+          ],
+        },
         "Family": "TaskDefinition",
         "Memory": "512",
         "NetworkMode": "awsvpc",
@@ -456,6 +845,44 @@ Object {
         },
       },
       "Type": "AWS::ECS::TaskDefinition",
+    },
+    "TaskDefinitionExecutionRole8D61C2FB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": "dummy-arn",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "TaskDefinitionExecutionRoleDefaultPolicy1F3406F5",
+        "Roles": Array [
+          Object {
+            "Ref": "TaskDefinitionExecutionRole8D61C2FB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "TaskDefinitionTaskRoleFD40A61D": Object {
       "Properties": Object {
