@@ -34,3 +34,9 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: test
         run: yarn test
+      - name: lint
+        uses: reviewdog/action-eslint@v1.1.2
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          eslint_flags: '--ext .ts src/'
