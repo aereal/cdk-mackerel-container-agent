@@ -67,7 +67,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -171,7 +174,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -338,7 +344,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -442,7 +451,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -546,7 +558,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -654,7 +669,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -762,7 +780,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
@@ -868,7 +889,10 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "secretsmanager:GetSecretValue",
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
               "Effect": "Allow",
               "Resource": "dummy-arn",
             },
